@@ -32,7 +32,43 @@
 
     <script>
     
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        var map = L.map('map').setView([29.6436, -82.3549], 15);
+
+        var marker = L.marker([29.6479, -82.3439]).addTo(map);
+    
+        var circle = L.circle([29.6332, -82.3688], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 150
+            }).addTo(map);
+
+        var polygon = L.polygon([
+            [29.6431, -82.3633],
+            [29.6412, -82.3632],
+            [29.6411, -82.3593],
+            [29.6448, -82.3592]
+            ]).addTo(map);
+        
+        var popup = L.popup()
+        .setLatLng([29.6436, -82.3549])
+        .setContent("<b>Hello! Welcome to the University of Florida!</b> These are my favorite spots on campus.")
+        .openOn(map);
+        
+        circle.bindPopup("<b>Natural Area Teaching Lab!</b><br>Calm and relaxing.");
+        marker.bindPopup("<b>Marston Science Library!</b><br>I should study...");
+        polygon.bindPopup("<b>Lake Alice!</b><br>Is that a gator?");
+
+        var popup = L.popup();
+
+        function onMapClick(e) {
+        popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+        }
+
+        map.on('click', onMapClick);
     
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
